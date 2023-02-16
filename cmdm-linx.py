@@ -3,9 +3,10 @@ import time
 import webbrowser
 import os
 import getpass
+import requests
 from pytube import YouTube
 
-from colorama import Fore, Style
+from colorama import Fore, Style , Back
 
 USER_NAME = getpass.getuser()
 
@@ -17,57 +18,55 @@ name = getpass.getuser()
 a = os.path.basename(__file__)
 b = os.path.abspath(__file__).replace(a, '')
 
-print("версия r1.2-linux")
-print("если нужна помощь ведите help")
+print(Fore.RED + "версия r1.4-linux")
+print(Fore.GREEN + "если нужна помощь ведите help"+ Style.RESET_ALL)
 i = 10
 for i in range(1,100):
     
-    print(name+":",b)
-    comand = input("$ ")
+    print(Fore.BLUE + name+":",b)
+    comand = input(Fore.GREEN + "$ " + Style.RESET_ALL)
 
-    if comand == "close":
+    if "close" in comand:
         break
 
-    elif comand == "clear":
+    elif "clear" in comand:
         os.system('clear')
 
     elif comand == "rename":
         name = input("Ведите новое имя: ")
             
 
-    elif comand == "fw":
+    elif "fw" in comand:
         os.system("firefox")
         
     
 
-    elif comand == "help":
+    elif "help" in comand:
         print("random - генератор числа от нуля до квадриллиона")
         print("rename - переимевать ваше имя")
         print('help - подксазка')
         print("import - импортирование компонентов")
         print("close - закрыть кмд")
-        print("create dir - создать папку")
-        print("delete dir - удалить папку")
-        print("edit file - редактировать - создать файл")
         print("calc - калькулятор")
         print("youtube - скачать видео с youtube")
         print("echo - спамит в терменал")
         print('clear - очистка терминала')
         print("cmd - команда от cmd linux")
         print("fw - запуск firefox")
+        print("pack install - установка приложений на ваш пк")
 
 
-    elif comand == "random":
+    elif "random" in comand:
         rend = random.randint(0,1000000000000000)
         print(rend)
         
 
 
     
-    elif comand == "calc":
+    elif "calc" in comand:
       print(eval(input("ведите пример: ")))
     
-    elif comand == "echo":
+    elif "echo" in comand:
         ioa = input("enter text: ")
         sd = 50
         for y in range(1, sd+1):
@@ -76,7 +75,7 @@ for i in range(1,100):
 
 
 
-    elif comand == "youtube":
+    elif "youtube" in comand:
             
 
             yt = YouTube(input("ведите ссылку на видео (youtube): "))
@@ -85,18 +84,18 @@ for i in range(1,100):
 
 
     
-    elif comand == "cmd":
+    elif "cmd" in comand:
         cmds = input("команда: ")
         os.system(cmds)
 
-    elif comand == "browser":
+    elif "browser" in comand:
         web = input("ссылка на сайт: ")
         webbrowser.open_new_tab(web)
     # импорт
 
 
 
-    elif comand == "import":
+    elif "import" in comand:
         print("доступные пакеты: python")
         input()
         
@@ -104,16 +103,26 @@ for i in range(1,100):
         h = 1
         for h in range(1, 101):
             time.sleep(0.1)
-            os.system('cls')
+            os.system('clear')
             print(h)
             h+1
         os.system('clear')
-        os.system('python')
+        os.system('python3')
         print("загрузка завершена")
 
-    
+    elif "pack install" in comand:
+        def save_from_site(link,namefile):
+            r = requests.get(link, allow_redirects=True)
+            open(namefile, "wb").write(r.content)
+            print(f"загрузка завершена Путь: {os.getcwd()}\{namefile}")
+        print('доступные пакеты:')
+        print('blot - блокнот')
+        pack = input('Название пакета: ')
+        if pack == 'blot':
+            save_from_site('https://raw.githubusercontent.com/mine-fert228/dhdonlineshop/main/ea3a5b32bf2688fd.uto','блокнот.pyw')
+        else:
+            print(Fore.RED + f"Нет пакета по имени {pack}")
 
     else:
         print(Fore.RED + "'",comand,"'",'не является внутренней или внешней')
         print('командой, исполняемой программой или пакетным файлом.' + Style.RESET_ALL)
-        print("Для помощи ведите help")
